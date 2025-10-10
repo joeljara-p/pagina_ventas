@@ -1,5 +1,5 @@
 // -------------------------------
-// VARIABLES
+// VARIABLES GLOBALES
 // -------------------------------
 const cartToggle = document.getElementById("cart-toggle");
 const cart = document.getElementById("cart");
@@ -13,27 +13,42 @@ const productContainer = document.getElementById("product-container");
 const leftBtn = document.getElementById("left-btn");
 const rightBtn = document.getElementById("right-btn");
 
-let carrito = []; // Array que almacena los productos seleccionados
+// Formularios y botones de pago
+const checkoutForm = document.getElementById("checkout-form");
+const confirmPurchase = document.getElementById("confirm-purchase");
+const cardPaymentBtn = document.getElementById("card-payment");
+const cardForm = document.getElementById("card-form");
+const payCardBtn = document.getElementById("pay-card");
+const cardAviso = document.getElementById("card-aviso");
+const checkoutAviso = document.getElementById("checkout-aviso");
+
+// Recuperar carrito guardado (si existe)
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 // -------------------------------
 // FUNCIONES
 // -------------------------------
 
-// Agregar producto al carrito
+// Agregar producto
 function agregarProducto(id, name, price) {
   const item = carrito.find(p => p.id === id);
   if (item) item.quantity++;
   else carrito.push({ id, name, price, quantity: 1 });
-
   actualizarCarrito();
-  console.log(`Producto agregado: ${name}`);
 }
 
-// Actualizar carrito en pantalla y consola
+// Actualizar carrito
 function actualizarCarrito() {
   cartItems.innerHTML = "";
   let total = 0;
   let count = 0;
+
+  if (carrito.length === 0) {
+    const vacio = document.createElement("li");
+    vacio.className = "list-group-item text-center text-muted";
+    vacio.textContent = "Tu carrito está vacío 🛒";
+    cartItems.appendChild(vacio);
+  }
 
   carrito.forEach(item => {
     const li = document.createElement("li");
@@ -50,78 +65,39 @@ function actualizarCarrito() {
 
   cartTotal.textContent = total;
   cartCount.textContent = count;
-  console.log(`Carrito actualizado: ${count} productos, Total: $${total}`);
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
 // Vaciar carrito
 function vaciarCarrito() {
-  if (carrito.length === 0) {
-    alert("El carrito ya está vacío");
-    return;
-  }
+  if (carrito.length === 0) return;
   if (confirm("¿Deseas vaciar el carrito?")) {
     carrito = [];
     actualizarCarrito();
-    console.log("Carrito vaciado");
+    localStorage.removeItem("carrito");
   }
 }
 
-// Finalizar compra
-function finalizarCompra() {
-  if (carrito.length === 0) {
-    alert("Tu carrito está vacío");
-    return;
-  }
-
-  const nombre = prompt("Ingresa tu nombre para completar la compra:");
-  if (!nombre) {
-    alert("Debes ingresar tu nombre");
-    return;
-  }
-
-  // Crear mensaje con los productos y total
-  let mensaje = `Hola, soy ${nombre}.\nQuisiera comprar los siguientes productos:\n`;
-  carrito.forEach(item => {
-    mensaje += `- ${item.name} x${item.quantity} = $${item.price * item.quantity}\n`;
-  });
-  mensaje += `Total: $${cartTotal.textContent}`;
-
-  // Codificar mensaje para URL
-  const mensajeURL = encodeURIComponent(mensaje);
-
-  // Número de WhatsApp (ejemplo +56998641246)
-  const numero = "56998641246";
-
-  // Abrir WhatsApp
-  window.open(`https://wa.me/${numero}?text=${mensajeURL}`, "_blank");
-
-  // Vaciar carrito
-  carrito = [];
-  actualizarCarrito();
-  console.log(`Compra enviada por WhatsApp por ${nombre}`);
-}
-
-
-// Mover carrusel de productos
+// Carrusel
 function moverCarrusel(direccion) {
   const scrollAmount = 250;
-  if (direccion === "izquierda") 
+  if (direccion === "izquierda")
     productContainer.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-  else 
+  else
     productContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
 }
 
 // -------------------------------
 // EVENTOS
 // -------------------------------
+
+// Mostrar/ocultar carrito
 cartToggle.addEventListener("click", () => {
-  if (cart.style.display === "none" || cart.style.display === "") {
-    cart.style.display = "block"; // mostrar carrito
-  } else {
-    cart.style.display = "none";  // ocultar carrito
-  }
+  cart.style.display = (cart.style.display === "none" || cart.style.display === "") ? "block" : "none";
 });
 
+// Agregar productos
 document.querySelectorAll(".add-to-cart").forEach(button => {
   button.addEventListener("click", () => {
     const id = parseInt(button.getAttribute("data-id"));
@@ -131,8 +107,70 @@ document.querySelectorAll(".add-to-cart").forEach(button => {
   });
 });
 
+// Vaciar carrito
 clearCart.addEventListener("click", vaciarCarrito);
-checkoutBtn.addEventListener("click", finalizarCompra);
 
+// WhatsApp - mostrar formulario
+checkoutBtn.addEventListener("click", () => {
+  if (carrito.length === 0) {
+    checkoutAviso.textContent = "El carrito está vacío.";
+    return;
+  }
+  checkoutForm.style.display = "block";
+  checkoutAviso.textContent = "";
+});
+
+// Confirmar compra WhatsApp
+confirmPurchase.addEventListener("click", () => {
+  const nombre = document.getElementById("nombre-comprador").value.trim();
+  if (!nombre) {
+    checkoutAviso.textContent = "Debes ingresar tu nombre.";
+    return;
+  }
+
+  let mensaje = `Hola, soy ${nombre}.\nQuisiera comprar los siguientes productos:\n`;
+  carrito.forEach(item => {
+    mensaje += `- ${item.name} x${item.quantity} = $${item.price * item.quantity}\n`;
+  });
+  mensaje += `Total: $${cartTotal.textContent}`;
+
+  const mensajeURL = encodeURIComponent(mensaje);
+  const numero = "56998641246";
+  window.open(`https://wa.me/${numero}?text=${mensajeURL}`, "_blank");
+
+  carrito = [];
+  actualizarCarrito();
+  localStorage.removeItem("carrito");
+  checkoutForm.style.display = "none";
+});
+
+// Botón de pago con tarjeta
+cardPaymentBtn.addEventListener("click", () => {
+  cardForm.style.display = "block";
+});
+
+// Confirmar pago con tarjeta
+payCardBtn.addEventListener("click", () => {
+  const numero = document.getElementById("card-number").value.trim();
+  const exp = document.getElementById("card-exp").value.trim();
+  const cvv = document.getElementById("card-cvv").value.trim();
+
+  if (!numero || !exp || !cvv) {
+    cardAviso.textContent = "Debes completar todos los campos de la tarjeta.";
+    return;
+  }
+
+  alert("Pago realizado con tarjeta exitosamente ✅");
+  carrito = [];
+  actualizarCarrito();
+  localStorage.removeItem("carrito");
+  cardForm.style.display = "none";
+  cardAviso.textContent = "";
+});
+
+// Carrusel
 leftBtn.addEventListener("click", () => moverCarrusel("izquierda"));
 rightBtn.addEventListener("click", () => moverCarrusel("derecha"));
+
+// Mostrar carrito guardado al cargar
+actualizarCarrito();

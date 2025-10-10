@@ -5,111 +5,142 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>El Rancho - Tienda Online</title>
 
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css"><!-- opcional -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <div class="overlay">
+<div class="overlay">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success bg-opacity-75">
-      <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="#">🐾 El Rancho</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Mascotas</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Accesorios</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Veterinaria</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Reparto</a></li>
-          </ul>
-          <button id="cart-toggle" class="btn btn-light">🛒 <span id="cart-count">0</span></button>
-        </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success bg-opacity-75">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">🐾 El Rancho</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="mascotas.html">Mascotas</a></li>
+          <li class="nav-item"><a class="nav-link" href="accesorios.html">Accesorios</a></li>
+          <li class="nav-item"><a class="nav-link" href="veterinaria.html">Veterinaria</a></li>
+          <li class="nav-item"><a class="nav-link" href="reparto.html">Reparto</a></li>
+        </ul>
+        <button id="cart-toggle" class="btn btn-light">🛒 <span id="cart-count">0</span></button>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- Introducción -->
-    <div class="container text-center my-4">
-      <h2 class="fw-bold">Productos Destacados</h2>
-      <p>Explora los productos y agrégalos a tu carrito de manera fácil y rápida.</p>
+  <!-- Introducción -->
+  <div class="container text-center my-4">
+    <h2 class="fw-bold">Productos Destacados</h2>
+    <p>Explora los productos y agrégalos a tu carrito de manera fácil y rápida.</p>
+  </div>
+
+  <!-- Carrusel -->
+  <section class="container my-5 position-relative">
+    <div id="product-container" class="d-flex gap-3 overflow-auto">
+      
+      <div class="product text-center">
+        <img src="./imgs/croqueta.jpg" alt="Croquetas">
+        <div class="mt-1">Croquetas</div>
+        <div>$5.000</div>
+        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="1" data-name="Croquetas" data-price="5000">Agregar</button>
+      </div>
+
+      <div class="product text-center">
+        <img src="./imgs/hueso.jpg" alt="Hueso">
+        <div class="mt-1">Hueso</div>
+        <div>$2.000</div>
+        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="2" data-name="Hueso" data-price="2000">Agregar</button>
+      </div>
+
+      <div class="product text-center">
+        <img src="./imgs/pelota.webp" alt="Pelota">
+        <div class="mt-1">Pelota</div>
+        <div>$3.000</div>
+        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="3" data-name="Pelota" data-price="3000">Agregar</button>
+      </div>
+
+      <div class="product text-center">
+        <img src="./imgs/correa.jpg" alt="Correa">
+        <div class="mt-1">Correa</div>
+        <div>$7.000</div>
+        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="4" data-name="Correa" data-price="7000">Agregar</button>
+      </div>
+      
     </div>
 
-    <!-- Carrusel de productos -->
-    <section class="container my-5 position-relative">
-      <div id="product-container" class="d-flex gap-3 overflow-auto">
-        
-        <!-- Productos -->
-        
-        <div class="product text-center">
-          <img src="./imgs/croqueta.jpg" alt="Croquetas">
-          <div class="mt-1">Croquetas</div>
-          <div>$5.000</div>
-          <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="1" data-name="Croquetas" data-price="5000">Agregar</button>
-        </div>
+    <button id="left-btn" class="arrow-btn btn btn-warning position-absolute top-50 start-0 translate-middle-y">◀</button>
+    <button id="right-btn" class="arrow-btn btn btn-warning position-absolute top-50 end-0 translate-middle-y">▶</button>
+  </section>
 
-        <div class="product text-center">
-          <img src="./imgs/hueso.jpg" alt="Hueso">
-          <div class="mt-1">Hueso</div>
-          <div>$2.000</div>
-          <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="2" data-name="Hueso" data-price="2000">Agregar</button>
-        </div>
-
-        <div class="product text-center">
-          <img src="./imgs/pelota.webp" alt="Pelota">
-          <div class="mt-1">Pelota</div>
-          <div>$3.000</div>
-          <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="3" data-name="Pelota" data-price="3000">Agregar</button>
-        </div>
-
-        <div class="product text-center">
-          <img src="./imgs/correa.jpg" alt="Correa">
-          <div class="mt-1">Correa</div>
-          <div>$7.000</div>
-          <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="4" data-name="Correa" data-price="7000">Agregar</button>
-        </div>
-
-        <!-- Repite productos hasta el 20 si deseas -->
-      </div>
-
-      <!-- Flechas del carrusel -->
-      <button id="left-btn" class="arrow-btn btn btn-warning position-absolute top-50 start-0 translate-middle-y">◀</button>
-      <button id="right-btn" class="arrow-btn btn btn-warning position-absolute top-50 end-0 translate-middle-y">▶</button>
-    </section>
-
-    <!-- Carrito -->
+  <!-- Carrito -->
   <div id="cart" class="card shadow-sm position-fixed top-50 end-0 translate-middle-y" style="display:none; width: 300px; z-index: 1050;">
     <div class="card-body">
       <h5 class="card-title text-center">🛒 Carrito</h5>
       <ul id="cart-items" class="list-group mb-3"></ul>
       <p class="fw-bold">Total: $<span id="cart-total">0</span></p>
+
+      <!-- Avisos -->
+      <p id="checkout-aviso" class="text-danger mt-1"></p>
+
+      <!-- Botones existentes -->
       <div class="d-flex gap-2">
         <button id="clear-cart" class="btn btn-danger w-50">Vaciar</button>
         <button id="checkout-button" class="btn btn-success w-50">Enviar por WhatsApp</button>
       </div>
+
+      <!-- Formulario para WhatsApp -->
+      <div id="checkout-form" class="mt-2" style="display:none;">
+        <input type="text" id="nombre-comprador" class="form-control mb-2" placeholder="Ingresa tu nombre">
+        <button id="confirm-purchase" class="btn btn-success w-100">Confirmar compra</button>
+      </div>
+
+      <!-- Botón de pago con tarjeta -->
+      <div class="d-flex gap-2 mt-2">
+        <button id="card-payment" class="btn btn-primary w-100">💳 Pagar con tarjeta</button>
+      </div>
+
+      <!-- Formulario de tarjeta -->
+      <div id="card-form" class="mt-2" style="display:none;">
+        <input type="text" id="card-number" class="form-control mb-2" placeholder="Número de tarjeta">
+        <input type="text" id="card-exp" class="form-control mb-2" placeholder="MM/AA">
+        <input type="text" id="card-cvv" class="form-control mb-2" placeholder="CVV">
+        <button id="pay-card" class="btn btn-primary w-100">Pagar</button>
+        <p id="card-aviso" class="text-danger mt-1"></p>
+      </div>
+
+      <!-- Medios de pago -->
+      <div class="mt-3 text-center">
+        <h6>Métodos de pago disponibles:</h6>
+        <div class="d-flex justify-content-center gap-2 flex-wrap mt-2">
+          <a href="https://www.visa.cl/" target="_blank"><img src="./imgs/visa.jpg" alt="Visa" width="50" height="30"></a>
+          <a href="https://www.mastercard.cl/" target="_blank"><img src="./imgs/mastercart.png" alt="Mastercard" width="50" height="30"></a>
+          <a href="https://www.redcompra.cl/" target="_blank"><img src="./imgs/Logo-Redcompra.jpg" alt="Redcompra" width="50" height="30"></a>
+          <a href="https://www.webpay.cl/" target="_blank"><img src="./imgs/webpay-logo.jpg" alt="WebPay" width="50" height="30"></a>
+          <a href="https://www.americanexpress.com/cl/" target="_blank"><img src="./imgs/ameriican.expres.png" alt="American Express" width="50" height="30"></a>
+          <a href="https://www.dinersclub.com/" target="_blank"><img src="./imgs/Diners-Club.png" alt="Diners Club" width="50" height="30"></a>
+          <a href="https://www.paypal.com/cl/home" target="_blank"><img src="./imgs/paypal.jpg" alt="PayPal" width="50" height="30"></a>
+        </div>
+      </div>
     </div>
   </div>
-    <!-- Footer -->
-    <footer class="text-center py-3 mt-4 bg-dark text-white">
-      <p class="mb-1">&copy; 2025 El Rancho - Todos los derechos reservados.</p>
-      <div>
-        <a href="https://www.instagram.com/joeljara_HP" target="_blank">
-          <img src="./imgs/logoinstagram.jpg" alt="Instagram" width="40" height="40" class="mx-2 rounded">
-        </a>
-        <a href="https://wa.me/56998641246" target="_blank">
-          <img src="./imgs/logowatsapp.jpg" alt="WahtsApp" width="40" height="40" class="mx-2 rounded">
-        </a>
-      </div>
-    </footer>
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam, dolore ducimus corrupti veritatis dolorem tenetur maiores velit minus pariatur deserunt rem sapiente voluptas aspernatur porro blanditiis nam nihil quae! Sit.
+Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus assumenda alias recusandae quod. Ipsam, eius! Quo rerum aspernatur culpa quas vero, ullam impedit accusantium porro illum aliquam autem iure assumenda.
+<!-- Footer -->
+  <footer class="text-center py-3 mt-4 bg-dark text-white">
+    <p class="mb-1">&copy; 2025 El Rancho - Todos los derechos reservados.</p>
+    <div class="redes-sociales mt-2">
+      <a href="https://www.instagram.com/joeljara_HP" target="_blank"><img src="./imgs/logoinstagram.jpg" alt="Instagram" width="40" height="40" class="rounded"></a>
+      <a href="https://wa.me/56998641246" target="_blank"><img src="./imgs/logowatsapp.jpg" alt="WhatsApp" width="40" height="40" class="rounded"></a>
+    </div>
+  </footer>
 
-  </div> 
+</div>
 
-  <!-- JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="script.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js" defer></script>
 </body>
 </html>

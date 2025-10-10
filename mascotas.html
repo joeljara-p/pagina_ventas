@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Rancho - Mascotas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="overlay">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success bg-opacity-75">
+    <div class="container-fluid">
+      <a class="navbar-brand fw-bold" href="index.html">🐾 El Rancho</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link active" href="mascotas.html">Mascotas</a></li>
+          <li class="nav-item"><a class="nav-link" href="accesorios.html">Accesorios</a></li>
+          <li class="nav-item"><a class="nav-link" href="veterinaria.html">Veterinaria</a></li>
+          <li class="nav-item"><a class="nav-link" href="reparto.html">Reparto</a></li>
+        </ul>
+        <button id="cart-toggle" class="btn btn-light">🛒 <span id="cart-count">0</span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Productos Mascotas -->
+  <div class="container text-center my-4">
+    <h2 class="fw-bold">Productos para Mascotas</h2>
+    <p>Encuentra todo lo necesario para tus mascotas.</p>
+
+    <section id="product-container" class="d-flex gap-3 overflow-auto my-4">
+      <div class="product text-center">
+        <img src="./imgs/croqueta.jpg" alt="Croquetas">
+        <div class="mt-1">Croquetas</div>
+        <div>$5.000</div>
+        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="1" data-name="Croquetas" data-price="5000">Agregar</button>
+      </div>
+      <div class="product text-center">
+        <img src="./imgs/pelota.webp" alt="Pelota">
+        <div class="mt-1">Pelota</div>
+        <div>$3.000</div>
+        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="2" data-name="Pelota" data-price="3000">Agregar</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center py-3 mt-4 bg-dark text-white">
+    <p class="mb-1">&copy; 2025 El Rancho - Todos los derechos reservados.</p>
+    <div class="redes-sociales mt-2">
+      <a href="https://www.instagram.com/joeljara_HP" target="_blank">
+        <img src="./imgs/logoinstagram.jpg" alt="Instagram" width="40" height="40" class="rounded">
+      </a>
+      <a href="https://wa.me/56998641246" target="_blank">
+        <img src="./imgs/logowatsapp.jpg" alt="WhatsApp" width="40" height="40" class="rounded">
+      </a>
+    </div>
+     <!-- Carrito -->
+  <div id="cart" class="card shadow-sm position-fixed top-50 end-0 translate-middle-y" style="display:none; width: 300px; z-index: 1050;">
+    <div class="card-body">
+      <h5 class="card-title text-center">🛒 Carrito</h5>
+      <ul id="cart-items" class="list-group mb-3"></ul>
+      <p class="fw-bold">Total: $<span id="cart-total">0</span></p>
+      <div class="d-flex gap-2">
+        <button id="clear-cart" class="btn btn-danger w-50">Vaciar</button>
+        <button id="checkout-button" class="btn btn-success w-50">Enviar por WhatsApp</button>
+      </div>
+    </div>
+  </div>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js" defer></script>
+</body>
+</html>
