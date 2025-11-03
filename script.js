@@ -1,176 +1,196 @@
-// -------------------------------
-// VARIABLES GLOBALES
-// -------------------------------
+// ==========================
+// Variables y elementos DOM
+// ==========================
 const cartToggle = document.getElementById("cart-toggle");
 const cart = document.getElementById("cart");
 const cartItems = document.getElementById("cart-items");
 const cartTotal = document.getElementById("cart-total");
-const cartCount = document.getElementById("cart-count");
-const clearCart = document.getElementById("clear-cart");
-const checkoutBtn = document.getElementById("checkout-button");
+const clearCartBtn = document.getElementById("clear-cart");
+const checkoutButton = document.getElementById("checkout-button");
+const checkoutForm = document.getElementById("checkout-form");
+const confirmPurchaseBtn = document.getElementById("confirm-purchase");
+const nombreCompradorInput = document.getElementById("nombre-comprador");
+const checkoutAviso = document.getElementById("checkout-aviso");
+
+const cardPaymentBtn = document.getElementById("card-payment");
+const cardForm = document.getElementById("card-form");
+const cardNumberInput = document.getElementById("card-number");
+const cardExpInput = document.getElementById("card-exp");
+const cardCVVInput = document.getElementById("card-cvv");
+const payCardBtn = document.getElementById("pay-card");
+const cardAviso = document.getElementById("card-aviso");
 
 const productContainer = document.getElementById("product-container");
 const leftBtn = document.getElementById("left-btn");
 const rightBtn = document.getElementById("right-btn");
 
-// Formularios y botones de pago
-const checkoutForm = document.getElementById("checkout-form");
-const confirmPurchase = document.getElementById("confirm-purchase");
-const cardPaymentBtn = document.getElementById("card-payment");
-const cardForm = document.getElementById("card-form");
-const payCardBtn = document.getElementById("pay-card");
-const cardAviso = document.getElementById("card-aviso");
-const checkoutAviso = document.getElementById("checkout-aviso");
+let cartArray = JSON.parse(localStorage.getItem("cart")) || [];
 
-// Recuperar carrito guardado (si existe)
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-// -------------------------------
-// FUNCIONES
-// -------------------------------
-
-// Agregar producto
-function agregarProducto(id, name, price) {
-  const item = carrito.find(p => p.id === id);
-  if (item) item.quantity++;
-  else carrito.push({ id, name, price, quantity: 1 });
-  actualizarCarrito();
+// ==========================
+// Funciones reutilizables
+// ==========================
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cartArray));
 }
 
-// Actualizar carrito
-function actualizarCarrito() {
+function updateCartDisplay() {
   cartItems.innerHTML = "";
   let total = 0;
-  let count = 0;
-
-  if (carrito.length === 0) {
-    const vacio = document.createElement("li");
-    vacio.className = "list-group-item text-center text-muted";
-    vacio.textContent = "Tu carrito está vacío 🛒";
-    cartItems.appendChild(vacio);
-  }
-
-  carrito.forEach(item => {
+  cartArray.forEach((item, index) => {
+    total += item.price;
     const li = document.createElement("li");
-    li.className = "list-group-item d-flex justify-content-between align-items-center";
-    li.textContent = `${item.name} x${item.quantity}`;
-    const spanPrice = document.createElement("span");
-    spanPrice.textContent = `$${item.price * item.quantity}`;
-    li.appendChild(spanPrice);
+    li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+    li.innerHTML = `
+      ${item.name} - $${item.price.toLocaleString()}
+      <button class="btn btn-sm btn-danger remove-item" data-index="${index}">❌</button>
+    `;
     cartItems.appendChild(li);
-
-    total += item.price * item.quantity;
-    count += item.quantity;
   });
-
-  cartTotal.textContent = total;
-  cartCount.textContent = count;
-
-  localStorage.setItem("carrito", JSON.stringify(carrito));
+  cartTotal.textContent = total.toLocaleString();
+  document.getElementById("cart-count").textContent = cartArray.length;
 }
 
-// Vaciar carrito
-function vaciarCarrito() {
-  if (carrito.length === 0) return;
-  if (confirm("¿Deseas vaciar el carrito?")) {
-    carrito = [];
-    actualizarCarrito();
-    localStorage.removeItem("carrito");
-  }
+function showMessage(element, message, duration = 3000) {
+  element.textContent = message;
+  setTimeout(() => {
+    element.textContent = "";
+  }, duration);
 }
 
-// Carrusel
-function moverCarrusel(direccion) {
-  const scrollAmount = 250;
-  if (direccion === "izquierda")
-    productContainer.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-  else
-    productContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
+function validateNombre(nombre) {
+  return /^[a-zA-Z\s]+$/.test(nombre.trim());
 }
 
-// -------------------------------
-// EVENTOS
-// -------------------------------
+function validateCardNumber(number) {
+  return /^\d{16}$/.test(number);
+}
 
-// Mostrar/ocultar carrito
+function validateExp(exp) {
+  return /^(0[1-9]|1[0-2])\/\d{2}$/.test(exp);
+}
+
+function validateCVV(cvv) {
+  return /^\d{3}$/.test(cvv);
+}
+
+// ==========================
+// Eventos carrito
+// ==========================
+document.querySelectorAll(".add-to-cart").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const id = btn.dataset.id;
+    const name = btn.dataset.name;
+    const price = parseInt(btn.dataset.price);
+    cartArray.push({ id, name, price });
+    updateCartDisplay();
+    saveCart();
+    showMessage(checkoutAviso, `${name} agregado al carrito`);
+  });
+});
+
 cartToggle.addEventListener("click", () => {
-  cart.style.display = (cart.style.display === "none" || cart.style.display === "") ? "block" : "none";
+  cart.style.display = cart.style.display === "block" ? "none" : "block";
 });
 
-// Agregar productos
-document.querySelectorAll(".add-to-cart").forEach(button => {
-  button.addEventListener("click", () => {
-    const id = parseInt(button.getAttribute("data-id"));
-    const name = button.getAttribute("data-name");
-    const price = parseInt(button.getAttribute("data-price"));
-    agregarProducto(id, name, price);
-  });
+clearCartBtn.addEventListener("click", () => {
+  cartArray = [];
+  updateCartDisplay();
+  saveCart();
+  showMessage(checkoutAviso, "Carrito vaciado");
 });
 
-// Vaciar carrito
-clearCart.addEventListener("click", vaciarCarrito);
-
-// WhatsApp - mostrar formulario
-checkoutBtn.addEventListener("click", () => {
-  if (carrito.length === 0) {
-    checkoutAviso.textContent = "El carrito está vacío.";
-    return;
+// Eliminar producto individual
+cartItems.addEventListener("click", (e) => {
+  if (e.target.classList.contains("remove-item")) {
+    const index = e.target.dataset.index;
+    cartArray.splice(index, 1);
+    updateCartDisplay();
+    saveCart();
+    showMessage(checkoutAviso, "Producto eliminado");
   }
+});
+
+// ==========================
+// Enviar por WhatsApp
+// ==========================
+checkoutButton.addEventListener("click", () => {
   checkoutForm.style.display = "block";
-  checkoutAviso.textContent = "";
 });
 
-// Confirmar compra WhatsApp
-confirmPurchase.addEventListener("click", () => {
-  const nombre = document.getElementById("nombre-comprador").value.trim();
-  if (!nombre) {
-    checkoutAviso.textContent = "Debes ingresar tu nombre.";
+confirmPurchaseBtn.addEventListener("click", () => {
+  const nombre = nombreCompradorInput.value;
+  if (!validateNombre(nombre)) {
+    showMessage(checkoutAviso, "Ingresa un nombre válido (solo letras)");
+    return;
+  }
+  if (cartArray.length === 0) {
+    showMessage(checkoutAviso, "Tu carrito está vacío");
     return;
   }
 
-  let mensaje = `Hola, soy ${nombre}.\nQuisiera comprar los siguientes productos:\n`;
-  carrito.forEach(item => {
-    mensaje += `- ${item.name} x${item.quantity} = $${item.price * item.quantity}\n`;
-  });
-  mensaje += `Total: $${cartTotal.textContent}`;
-
-  const mensajeURL = encodeURIComponent(mensaje);
-  const numero = "56998641246";
-  window.open(`https://wa.me/${numero}?text=${mensajeURL}`, "_blank");
-
-  carrito = [];
-  actualizarCarrito();
-  localStorage.removeItem("carrito");
+  const productos = cartArray.map(item => `${item.name} - $${item.price.toLocaleString()}`).join("\n");
+  const total = cartArray.reduce((sum, item) => sum + item.price, 0);
+  const mensaje = `Hola, soy ${nombre} y quiero comprar:\n${productos}\nTotal: $${total.toLocaleString()}`;
+  const url = `https://wa.me/56998641246?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, "_blank");
+  cartArray = [];
+  updateCartDisplay();
+  saveCart();
   checkoutForm.style.display = "none";
+  showMessage(checkoutAviso, "Compra enviada por WhatsApp");
 });
 
-// Botón de pago con tarjeta
+// ==========================
+// Pago con tarjeta
+// ==========================
 cardPaymentBtn.addEventListener("click", () => {
   cardForm.style.display = "block";
 });
 
-// Confirmar pago con tarjeta
 payCardBtn.addEventListener("click", () => {
-  const numero = document.getElementById("card-number").value.trim();
-  const exp = document.getElementById("card-exp").value.trim();
-  const cvv = document.getElementById("card-cvv").value.trim();
+  const number = cardNumberInput.value.trim();
+  const exp = cardExpInput.value.trim();
+  const cvv = cardCVVInput.value.trim();
 
-  if (!numero || !exp || !cvv) {
-    cardAviso.textContent = "Debes completar todos los campos de la tarjeta.";
+  if (!validateCardNumber(number)) {
+    showMessage(cardAviso, "Número de tarjeta inválido (16 dígitos)");
+    return;
+  }
+  if (!validateExp(exp)) {
+    showMessage(cardAviso, "Fecha inválida (MM/AA)");
+    return;
+  }
+  if (!validateCVV(cvv)) {
+    showMessage(cardAviso, "CVV inválido (3 dígitos)");
+    return;
+  }
+  if (cartArray.length === 0) {
+    showMessage(cardAviso, "El carrito está vacío");
     return;
   }
 
-  alert("Pago realizado con tarjeta exitosamente ✅");
-  carrito = [];
-  actualizarCarrito();
-  localStorage.removeItem("carrito");
+  cartArray = [];
+  updateCartDisplay();
+  saveCart();
   cardForm.style.display = "none";
-  cardAviso.textContent = "";
+  showMessage(cardAviso, "Pago realizado con éxito 💳", 5000);
 });
 
-// Carrusel
-leftBtn.addEventListener("click", () => moverCarrusel("izquierda"));
-rightBtn.addEventListener("click", () => moverCarrusel("derecha"));
+// ==========================
+// Carrusel de productos
+// ==========================
+let scrollAmount = 0;
+const scrollStep = 300;
 
-// Mostrar carrito guardado al cargar
-actualizarCarrito();
+rightBtn.addEventListener("click", () => {
+  productContainer.scrollBy({ left: scrollStep, behavior: "smooth" });
+});
+
+leftBtn.addEventListener("click", () => {
+  productContainer.scrollBy({ left: -scrollStep, behavior: "smooth" });
+});
+
+// ==========================
+// Inicializar carrito al cargar
+// ==========================
+updateCartDisplay();

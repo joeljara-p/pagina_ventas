@@ -1,4 +1,19 @@
 /* =========================
+   0. Variables
+========================= */
+:root {
+  --primary-color: #27ae60;
+  --secondary-color: #2ecc71;
+  --danger-color: #e74c3c;
+  --success-color: #2ecc71;
+  --bg-overlay: rgba(0,0,0,0.6);
+  --bg-footer: rgba(0,0,0,0.8);
+  --btn-hover-scale: 1.05;
+  --box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  --border-radius: 10px;
+}
+
+/* =========================
    1. General
 ========================= */
 * {
@@ -17,7 +32,7 @@ body {
 }
 
 .overlay {
-  background-color: rgba(0,0,0,0.6);
+  background-color: var(--bg-overlay);
   min-height: 100vh;
   padding: 1rem;
 }
@@ -26,7 +41,7 @@ body {
    2. Navbar
 ========================= */
 .navbar {
-  border-radius: 10px;
+  border-radius: var(--border-radius);
 }
 
 .navbar-brand {
@@ -49,7 +64,7 @@ body {
   color: #000;
   text-align: center;
   min-width: 150px;
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   padding: 0.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -61,14 +76,14 @@ body {
 }
 
 .product:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transform: scale(var(--btn-hover-scale));
+  box-shadow: var(--box-shadow);
 }
 
 .product button {
   margin-top: 0.5rem;
   padding: 0.3rem 0.5rem;
-  background-color: #2ecc71;
+  background-color: var(--secondary-color);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -77,8 +92,8 @@ body {
 }
 
 .product button:hover {
-  background-color: #27ae60;
-  transform: scale(1.05);
+  background-color: var(--primary-color);
+  transform: scale(var(--btn-hover-scale));
 }
 
 /* =========================
@@ -105,14 +120,14 @@ body {
   width: 300px;
   background: white;
   color: #000;
-  border-left: 2px solid #27ae60;
+  border-left: 2px solid var(--primary-color);
   padding: 1rem;
   box-shadow: -2px 0 5px rgba(0,0,0,0.1);
   transition: right 0.5s ease;
   z-index: 10;
   height: calc(100vh - 100px);
   overflow-y: auto;
-  border-radius: 10px 0 0 10px;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
 }
 
 #cart.active {
@@ -130,11 +145,21 @@ body {
   border-bottom: 1px solid #ccc;
 }
 
+/* Hover para botones del carrito */
+#clear-cart:hover,
+#checkout-button:hover,
+#confirm-purchase:hover,
+#card-payment:hover,
+#pay-card:hover {
+  transform: scale(var(--btn-hover-scale));
+  box-shadow: var(--box-shadow);
+}
+
 /* =========================
    6. Footer
 ========================= */
 footer {
-  background-color: rgba(0,0,0,0.8);
+  background-color: var(--bg-footer);
   color: #fff;
   text-align: center;
   padding: 20px 0;
@@ -158,7 +183,7 @@ footer {
 
 .redes-sociales img:hover {
   transform: scale(1.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: var(--box-shadow);
 }
 
 /* =========================
@@ -179,4 +204,10 @@ footer {
   button { width: 100%; font-size: 14px; padding: 8px; }
   #cart { top: 0; right: -100%; width: 100%; height: 100vh; }
   #cart.active { right: 0; }
+}
+
+/* Extra: Pantallas muy grandes */
+@media (min-width: 1400px) {
+  #product-container { gap: 2rem; }
+  .product { min-width: 180px; }
 }
