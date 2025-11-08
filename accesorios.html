@@ -20,9 +20,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav me-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="mascotas.html">Mascotas</a></li>
           <li class="nav-item"><a class="nav-link active" href="accesorios.html">Accesorios</a></li>
-          <li class="nav-item"><a class="nav-link" href="veterinaria.html">Veterinaria</a></li>
           <li class="nav-item"><a class="nav-link" href="reparto.html">Reparto</a></li>
         </ul>
         <button id="cart-toggle" class="btn btn-light">🛒 <span id="cart-count">0</span></button>
@@ -30,79 +28,37 @@
     </div>
   </nav>
 
-  <!-- Productos -->
+  <!-- Introducción -->
+  <div class="container text-center my-4">
+    <h2 class="fw-bold">Accesorios para tus mascotas</h2>
+    <p>Encuentra todo lo que tu peludo necesita, desde correas hasta juguetes y más.</p>
+  </div>
+
+  <!-- Productos dinámicos -->
   <section class="container my-4 position-relative">
-    <div id="product-container" class="d-flex gap-3 overflow-auto">
-
-      <div class="product text-center">
-        <img src="./imgs/correa.jpg" alt="Correa">
-        <div class="mt-1">Correa</div>
-        <div>$7.000</div>
-        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="1" data-name="Correa" data-price="7000">Agregar</button>
-      </div>
-
-      <div class="product text-center">
-        <img src="./imgs/collarperro.jpg" alt="Collar">
-        <div class="mt-1">Collar</div>
-        <div>$5.000</div>
-        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="2" data-name="Collar" data-price="5000">Agregar</button>
-      </div>
-
-      <div class="product text-center">
-        <img src="./imgs/camaperro.jpg" alt="Cama">
-        <div class="mt-1">Cama</div>
-        <div>$15.000</div>
-        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="3" data-name="Cama" data-price="15000">Agregar</button>
-      </div>
-
-      <div class="product text-center">
-        <img src="./imgs/jugueteperro.jpg" alt="Juguete">
-        <div class="mt-1">Juguete</div>
-        <div>$3.000</div>
-        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="4" data-name="Juguete" data-price="3000">Agregar</button>
-      </div>
-
-      <div class="product text-center">
-        <img src="./imgs/platoperro.jpg" alt="Platito de comida">
-        <div class="mt-1">Platito</div>
-        <div>$2.500</div>
-        <button class="btn btn-sm btn-success mt-1 add-to-cart" data-id="5" data-name="Platito" data-price="2500">Agregar</button>
-      </div>
-
-    </div>
-
-    <!-- Flechas -->
+    <div id="product-container" class="d-flex gap-3 overflow-auto"></div>
     <button id="left-btn" class="arrow-btn btn btn-warning position-absolute top-50 start-0 translate-middle-y">◀</button>
     <button id="right-btn" class="arrow-btn btn btn-warning position-absolute top-50 end-0 translate-middle-y">▶</button>
   </section>
-<!-- Carrito -->
+
+  <!-- Carrito -->
   <div id="cart" class="card shadow-sm position-fixed top-50 end-0 translate-middle-y" style="display:none; width: 300px; z-index: 1050;">
     <div class="card-body">
       <h5 class="card-title text-center">🛒 Carrito</h5>
       <ul id="cart-items" class="list-group mb-3"></ul>
       <p class="fw-bold">Total: $<span id="cart-total">0</span></p>
-
-      <!-- Avisos -->
       <p id="checkout-aviso" class="text-danger mt-1"></p>
-
-      <!-- Botones existentes -->
       <div class="d-flex gap-2">
         <button id="clear-cart" class="btn btn-danger w-50">Vaciar</button>
         <button id="checkout-button" class="btn btn-success w-50">Enviar por WhatsApp</button>
       </div>
-
-      <!-- Formulario para WhatsApp -->
       <div id="checkout-form" class="mt-2" style="display:none;">
         <input type="text" id="nombre-comprador" class="form-control mb-2" placeholder="Ingresa tu nombre">
         <button id="confirm-purchase" class="btn btn-success w-100">Confirmar compra</button>
       </div>
-
-      <!-- Botón de pago con tarjeta -->
       <div class="d-flex gap-2 mt-2">
         <button id="card-payment" class="btn btn-primary w-100">💳 Pagar con tarjeta</button>
       </div>
-
-      <!-- Formulario de tarjeta -->
       <div id="card-form" class="mt-2" style="display:none;">
         <input type="text" id="card-number" class="form-control mb-2" placeholder="Número de tarjeta">
         <input type="text" id="card-exp" class="form-control mb-2" placeholder="MM/AA">
@@ -110,8 +66,6 @@
         <button id="pay-card" class="btn btn-primary w-100">Pagar</button>
         <p id="card-aviso" class="text-danger mt-1"></p>
       </div>
-
-      <!-- Medios de pago -->
       <div class="mt-3 text-center">
         <h6>Métodos de pago disponibles:</h6>
         <div class="d-flex justify-content-center gap-2 flex-wrap mt-2">
@@ -126,17 +80,13 @@
       </div>
     </div>
   </div>
- 
+
   <!-- Footer -->
   <footer class="text-center py-3 mt-4 bg-dark text-white">
     <p class="mb-1">&copy; 2025 El Rancho - Todos los derechos reservados.</p>
     <div class="redes-sociales mt-2">
-      <a href="https://www.instagram.com/joeljara_HP" target="_blank">
-        <img src="./imgs/logoinstagram.jpg" alt="Instagram" width="40" height="40" class="rounded">
-      </a>
-      <a href="https://wa.me/56998641246" target="_blank">
-        <img src="./imgs/logowatsapp.jpg" alt="WhatsApp" width="40" height="40" class="rounded">
-      </a>
+      <a href="https://www.instagram.com/joeljara_HP" target="_blank"><img src="./imgs/logoinstagram.jpg" alt="Instagram" width="40" height="40" class="rounded"></a>
+      <a href="https://wa.me/56998641246" target="_blank"><img src="./imgs/logowatsapp.jpg" alt="WhatsApp" width="40" height="40" class="rounded"></a>
     </div>
   </footer>
 
@@ -144,5 +94,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="script.js" defer></script>
+<script>
+  // Mostrar solo productos de la categoría accesorios
+  mostrarProductos('accesorios');
+</script>
 </body>
 </html>
