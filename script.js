@@ -121,29 +121,17 @@ payCardBtn.addEventListener('click', () => {
   alert('Pago simulado exitoso ✅');
   carrito=[]; actualizarCarrito(); cardForm.style.display='none'; cardAviso.textContent='';
 });
-
-// Carrusel
-leftBtn.addEventListener('click',()=> productContainer.scrollBy({left:-250, behavior:'smooth'}));
-rightBtn.addEventListener('click',()=> productContainer.scrollBy({left:250, behavior:'smooth'}));
-
-// Filtrar productos al hacer clic en navbar
-document.querySelectorAll('.nav-link[data-category]').forEach(link=>{
-  link.addEventListener('click', e=>{
-    e.preventDefault();
-    document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
-    link.classList.add('active');
-    mostrarProductos(link.dataset.category);
-  });
-});
-
-// Notificación toast
-function mostrarToast(msg){
+function mostrarToast(mensaje) {
+  // Crear el elemento
   const toast = document.createElement('div');
-  toast.className='toast-msg';
-  toast.textContent=msg;
-  document.body.appendChild(toast);
-  setTimeout(()=> toast.remove(),2000);
-}
+  toast.className = 'toast-msg';
+  toast.textContent = mensaje;
 
-// Inicializar carrito
-actualizarCarrito();
+  // Insertarlo en el body
+  document.body.appendChild(toast);
+
+  // Quitar el toast después de 2.5 segundos
+  setTimeout(() => {
+    toast.remove();
+  }, 2500);
+}
