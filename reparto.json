@@ -1,0 +1,4 @@
+[
+  { "id": 1, "name": "Entrega estándar", "price": 2000, "category": "reparto", "img": "./imgs/envioexpress.jpg" },
+  { "id": 2, "name": "Entrega express", "price": 5000, "category": "reparto", "img": "./imgs/enviorapido.jpg" }
+]

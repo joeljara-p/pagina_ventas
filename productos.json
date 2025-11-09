@@ -1,107 +1,15 @@
 [
-  {
-    "id": 1,
-    "name": "Croquetas",
-    "price": 5000,
-    "category": "alimentos",
-    "img": "./imgs/croqueta.jpg"
-  },
-  {
-    "id": 2,
-    "name": "Hueso",
-    "price": 2000,
-    "category": "alimentos",
-    "img": "./imgs/hueso.jpg"
-  },
-  {
-    "id": 3,
-    "name": "Pelota",
-    "price": 3000,
-    "category": "alimentos",
-    "img": "./imgs/pelota.webp"
-  },
-  {
-    "id": 4,
-    "name": "Correa",
-    "price": 7000,
-    "category": "accesorios",
-    "img": "./imgs/correa.jpg"
-  },
-  {
-    "id": 5,
-    "name": "Antipulgas",
-    "price": 8000,
-    "category": "salud",
-    "img": "./imgs/pipetaantipulgas.jpg"
-  },
-  {
-    "id": 6,
-    "name": "Vitaminas",
-    "price": 10000,
-    "category": "salud",
-    "img": "./imgs/vitaminas.jpg"
-  },
-  {
-    "id": 7,
-    "name": "Collar",
-    "price": 5000,
-    "category": "accesorios",
-    "img": "./imgs/collarperro.jpg"
-  },
-  {
-    "id": 8,
-    "name": "Cama",
-    "price": 15000,
-    "category": "accesorios",
-    "img": "./imgs/camaperro.jpg"
-  },
-  {
-    "id": 9,
-    "name": "Juguete",
-    "price": 3000,
-    "category": "accesorios",
-    "img": "./imgs/jugueteperro.jpg"
-  },
-  {
-    "id": 10,
-    "name": "Platito",
-    "price": 2500,
-    "category": "accesorios",
-    "img": "./imgs/platoperro.jpg"
-  },
-  {
-    "id": 11,
-    "name": "Casa",
-    "price": 28000,
-    "category": "accesorios",
-    "img": "./imgs/casa perro.webp"
-  },
-  {
-    "id": 12,
-    "name": "Ropa",
-    "price": 12000,
-    "category": "accesorios",
-    "img": "./imgs/ropa perro.webp"
-  },
-  {
-    "id": 13,
-    "name": "Dosificador comida",
-    "price": 30000,
-    "category": "accesorios",
-    "img": "./imgs/dosificador de comida.jpg"
-  },
-  {
-    "id": 14,
-    "name": "Entrega estándar",
-    "price": 2000,
-    "category": "reparto",
-    "img": "./imgs/envioexpress.jpg"
-  },
-  {
-    "id": 15,
-    "name": "Entrega express",
-    "price": 5000,
-    "category": "reparto",
-    "img": "./imgs/enviorapido.jpg"
-  }
+  { "id": 1, "name": "Croquetas", "price": 5000, "category": "alimentos", "img": "./imgs/croqueta.jpg" },
+  { "id": 2, "name": "Hueso", "price": 2000, "category": "alimentos", "img": "./imgs/hueso.jpg" },
+  { "id": 3, "name": "Pelota", "price": 3000, "category": "alimentos", "img": "./imgs/pelota.webp" },
+  { "id": 4, "name": "Correa", "price": 7000, "category": "accesorios", "img": "./imgs/correa.jpg" },
+  { "id": 5, "name": "Antipulgas", "price": 8000, "category": "salud", "img": "./imgs/pipetaantipulgas.jpg" },
+  { "id": 6, "name": "Vitaminas", "price": 10000, "category": "salud", "img": "./imgs/vitaminas.jpg" },
+  { "id": 7, "name": "Collar", "price": 5000, "category": "accesorios", "img": "./imgs/collarperro.jpg" },
+  { "id": 8, "name": "Cama", "price": 15000, "category": "accesorios", "img": "./imgs/camaperro.jpg" },
+  { "id": 9, "name": "Juguete", "price": 3000, "category": "accesorios", "img": "./imgs/jugueteperro.jpg" },
+  { "id": 10, "name": "Platito", "price": 2500, "category": "accesorios", "img": "./imgs/platoperro.jpg" },
+  { "id": 11, "name": "Casa", "price": 28000, "category": "accesorios", "img": "./imgs/casaperro.webp" },
+  { "id": 12, "name": "Ropa", "price": 12000, "category": "accesorios", "img": "./imgs/ropaperro.webp" },
+  { "id": 13, "name": "Dosificador comida", "price": 30000, "category": "accesorios", "img": "./imgs/dosificadordecomida.jpg" }
 ]

@@ -1,29 +1,194 @@
-:root{
-  --primary:#27ae60; --secondary:#2ecc71; --danger:#e74c3c; --bg-overlay:rgba(0,0,0,0.6);
-}
-body{
-  font-family:Arial,sans-serif; margin:0; padding:0; background:url('./imgs/petfondo.jpg') no-repeat center/cover; color:#fff;
-}
-.overlay{background:var(--bg-overlay); min-height:100vh; padding:1rem;}
-.product{background:#fff;color:#000;text-align:center;min-width:150px;border-radius:10px;padding:.5rem;transition:transform .3s ease, box-shadow .3s ease;}
-.product img{width:120px;border-radius:8px;margin-bottom:.5rem;}
-.product button{margin-top:.5rem;padding:.3rem .5rem;background:var(--secondary);color:#fff;border:none;border-radius:5px;cursor:pointer;transition:.3s;}
-.product:hover{transform:scale(1.05); box-shadow:0 4px 12px rgba(0,0,0,.3);}
-.product button:hover{background:var(--primary); transform:scale(1.05);}
-#product-container{display:flex;overflow-x:hidden;gap:1rem;padding:1rem 0; scroll-behavior:smooth;}
-.arrow-btn{position:absolute;top:50%;transform:translateY(-50%); z-index:10;}
-#left-btn{left:0;} #right-btn{right:0;}
-#cart{position:fixed; top:80px; right:-320px; width:300px; background:#fff;color:#000;border-left:2px solid var(--primary);padding:1rem;box-shadow:-2px 0 5px rgba(0,0,0,.1);transition:right .5s;height:calc(100vh - 100px); overflow-y:auto;border-radius:10px 0 0 10px;}
-#cart.active{right:0;}
-.toast-msg{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--secondary);color:#fff;padding:10px 20px;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,.3);z-index:200;}
-@media(max-width:767px){.product{min-width:120px;} #cart{width:100%; right:-100%;} #cart.active{right:0;}}
-@media(max-width:575px){.product{min-width:100px;} .product img{width:100px;} button{width:100%; font-size:14px; padding:8px;} #cart{top:0; width:100%; height:100vh;} #cart.active{right:0;}}
-footer{background:rgba(0,0,0,.8); color:#fff; text-align:center; padding:20px 0; margin-top:40px;}
-.redes-sociales{display:flex; justify-content:center; gap:20px; margin-top:10px;}
-.redes-sociales img{width:40px;height:40px;border-radius:8px;transition:.3s;}
-.redes-sociales img:hover{transform:scale(1.1);}
-@media(max-width:575px){.product{min-width:100px;padding:.5rem;font-size:14px}.product img{width:100px}.product button{width:100%;font-size:14px;padding:8px}#product-container{flex-wrap:nowrap;padding:.5rem 0;gap:.5rem}#cart{top:0;right:-100%;width:100%;height:100vh;border-radius:0}#cart.active{right:0}.arrow-btn{padding:.3rem .5rem;font-size:12px}.redes-sociales img{width:30px;height:30px}}
-@media(max-width:575px){
-  #cart{display:none !important;} /* Oculta el carrito lateral */
+:root {
+  --primary: #27ae60;
+  --secondary: #2ecc71;
+  --danger: #e74c3c;
+  --bg-overlay: rgba(0, 0, 0, 0.6);
 }
 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url('./imgs/petfondo.jpg') no-repeat center/cover;
+  color: #fff;
+}
+
+.overlay {
+  background: var(--bg-overlay);
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.product {
+  background: #fff;
+  color: #000;
+  text-align: center;
+  min-width: 150px;
+  border-radius: 10px;
+  padding: .5rem;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.product img {
+  width: 120px;
+  border-radius: 8px;
+  margin-bottom: .5rem;
+}
+
+.product button {
+  margin-top: .5rem;
+  padding: .3rem .5rem;
+  background: var(--secondary);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: .3s;
+  outline: none;
+}
+
+.product:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+}
+
+.product button:hover {
+  background: var(--primary);
+  transform: scale(1.05);
+}
+
+#product-container {
+  display: flex;
+  overflow-x: hidden;
+  gap: 1rem;
+  padding: 1rem 0;
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.arrow-btn:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+#left-btn { left: 0.5rem; }
+#right-btn { right: 0.5rem; }
+
+#cart {
+  position: fixed;
+  top: 80px;
+  right: -320px;
+  width: 300px;
+  background: #fff;
+  color: #000;
+  border-left: 2px solid var(--primary);
+  padding: 1rem;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, .1);
+  transition: right .5s ease;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  border-radius: 10px 0 0 10px;
+  z-index: 999;
+}
+
+#cart.active { right: 0; }
+
+/* fallback if inline style display:block used */
+#cart[style*="display: block"] { right: 0 !important; }
+
+.toast-msg {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--secondary);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .3);
+  z-index: 2000;
+}
+
+footer {
+  background: rgba(0, 0, 0, .8);
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+  display: block;
+}
+
+.redes-sociales {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.redes-sociales img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  transition: .3s;
+}
+
+.redes-sociales img:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 767px) {
+  .product { min-width: 120px; }
+  #cart { width: 100%; right: -100%; }
+  #cart.active { right: 0; }
+}
+
+@media (max-width: 575px) {
+  .product {
+    min-width: 100px;
+    padding: .5rem;
+    font-size: 14px;
+  }
+  .product img { width: 100px; }
+  .product button {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px;
+  }
+  #product-container {
+    flex-wrap: nowrap;
+    padding: .5rem 0;
+    gap: .5rem;
+  }
+  #cart {
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+  #cart.active { right: 0; }
+  .arrow-btn {
+    padding: .3rem .5rem;
+    font-size: 12px;
+  }
+  .redes-sociales img { width: 30px; height: 30px; }
+}
